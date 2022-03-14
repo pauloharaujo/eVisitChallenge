@@ -34,7 +34,7 @@ dotnet restore
 
 **running the API**
 ```js
-dotnet run
+dotnet run --project src/eVisit.Challenge.csproj
 ```
 
 **sample endpoint calls**
