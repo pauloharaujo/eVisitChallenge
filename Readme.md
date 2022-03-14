@@ -83,43 +83,43 @@ clear()
 
 **What would you do differently if you had more time?**
 - At least I wanted to have implemented a better sorting algorithm than bubble sort.
-- Following the TDD approach to implement it would have been great and give me more confidence while refactoring the code.
+- Following the TDD approach to implementing it would have been great and given me more confidence while refactoring the code.
 - I would have added more test cases.
-- Also add IP validation and error handling.
+- Also, add IP validation and error handling.
 
 **What is the runtime complexity of each function?**
 - request_handled(ip_address): 
     - O(n).
-    - Even though the dictionary is very fast to track all the ip address I am using the bubble sort to keep the top 100 most requested IPs. Because of it the runtime was lowered down to O(n).
+    - Even though the dictionary is very fast to track all the IP addresses I am using the bubble sort to keep the top 100 most requested IPs. Because of it, the runtime was lowered down to O(n).
 - top100()
     - O(1).
-    - The top 100 IP addresses are already sorted in descending order, so I just need to return it.
+    - The top 100 IP addresses are already sorted in descending order, so I just need to return them.
 - clear()
     - O(1).
-    - Just creates a new instance for both objects used to track the the IPs and top 100 most requested IPs.
+    - Just creates a new instance for both objects used to track the IPs and top 100 most requested IPs.
 
 **How does your code work?**
-- I create an API using the new minimalistic API approach that was introduced on ASP.NET 6.
+- I created an API using the new minimalistic API approach that was introduced on ASP.NET 6.
 - The API exposes the 3 endpoints for the challenge requirements:
     - request_handled(ip_address)
     - top100()
     - clear()
 - The unique IP Addresses are saved in memory using a Dictionary with the Key storing the IP Address for fast access and the Value stored the number of requests done by the corresponding IP.
 - The Top 100 most requested IPs are saved on a list of IpAddressTracker which contains a property for storing the IP Address and the Number of Requests done by this IP Address.
-- The API add a dependency injection to the TrackIpAddressService and the API endpoints call each of its corresponding function.
+- The API adds a dependency injection to the TrackIpAddressService and the API endpoints call each of its corresponding functions.
 - The TrackIpAddressService implements the following functions:
     - ClearIpAddressTracking: 
-        - Creates a new instance of the the IPAddresses dictionary and Top100IpAddresses List.
+        - Creates a new instance of the IP addresses dictionary and Top100IpAddresses List.
         - This is the function called by the clear() API endpoint.
     TrackNewIpAddress(string ipAddress):
-        - Update the IPAddresses dictionary by adding a new IP to it or updating an existing IP address entry.
+        - Update the IP addresses dictionary by adding a new IP to it or updating an existing IP address entry.
         - Updates the Top100IpAddresses List by keeping the most requested sorted by descending order.
-        - Updating the Top100IpAddresses always sorts the list using bubble sort which is O(n), but it only applies the sort to the Top 100 entries plus the new entry that is being added, so the sort would be apply to a maximum of 101 elements on the list. The latest element of the list is deleted when it has more than 100 items.
+        - Updating the Top100IpAddresses always sorts the list using bubble sort which is O(n), but it only applies the sort to the Top 100 entries plus the new entry that is being added, so the sort would be applied to a maximum of 101 elements on the list. The latest element of the list is deleted when it has more than 100 items.
 
 **What other approaches did you decide not to pursue?**
-- I started using LINQ features to get the top 100 IPs sorted faster, but that is a C# specific feature and I wanted to implement it not rellying on language specific features.
+- I started using LINQ features to get the top 100 IPs sorted faster, but that is a C# specific feature and I wanted to implement it not relying on language-specific features.
 
 **How would you test this?**
-- I am using depedency injection when creating the API services, so I would mock the service interface to be able to make sure the requests are working as expected.
-- Add more unit tests for the service so I could test it with milions of requests for example. I created some tests to make sure it is working, but arranging and asserting for millions of requests would take more time to implement.
-- Also I would create some load tests simulating multiple parallels requests to make sure the API have good performance when having high traffic.
+- I am using dependency injection when creating the API services, so I would mock the service interface to be able to make sure the requests are working as expected.
+- Add more unit tests for the service so I could test it with millions of requests for example. I created some tests to make sure it is working, but arranging and asserting for millions of requests would take more time to implement.
+- Also, I would create some load tests simulating multiple parallel requests to make sure the API has good performance when having high traffic.
